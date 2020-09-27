@@ -8,6 +8,8 @@ import Table from "./Table"
 import InfoBox from "./InfoBox";
 import { Select, MenuItem, FormControl } from "@material-ui/core"
 import { sortData,prettyPrintStat } from './util';
+import ButtonAppBar from "./Navbar"
+import MenuIcon from '@material-ui/icons/Menu';
 function App() {
 
   const [country, setCountry] = useState("Worldwide");
@@ -48,6 +50,7 @@ function App() {
   const onCountryChange= async (event) =>{
   const countryCode=event.target.value;
   setCountry(countryCode);
+  console.log(countryCode)
   const url = countryCode==='Worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
   await fetch(url)
   .then(response => response.json())
@@ -62,10 +65,16 @@ function App() {
  
   
   return (
+    <div>
+
+    <ButtonAppBar/>
+
     <div className="App">
+   
       <div className="app_left">
         <div className="app_header">
           <h1> COVID-19 TRACKER</h1>
+          
           <FormControl className="app_dropdown">
             <Select variant="outlined" onChange={onCountryChange} value={country}>
               <MenuItem value="Worldwide">Worldwide </MenuItem>
@@ -96,6 +105,7 @@ function App() {
         </CardContent>
 
       </Card>
+    </div>
     </div>
   );
 }
